@@ -14,42 +14,51 @@ class AuthProvider {
 
     login(options = {}) {
         return async (req, res, next) => {
-            const state = this.cryptoProvider.base64Encode(
-                JSON.stringify({
-                    successRedirect: options.successRedirect || '/',
-                })
-            );
+            console.log('[AUTH] Login initiated');
+            try {
+                const state = this.cryptoProvider.base64Encode(
+                    JSON.stringify({
+                        successRedirect: options.successRedirect || '/',
+                    })
+                );
 
-            const authCodeUrlRequestParams = {
-                state: state,
-                scopes: options.scopes || [],
-                redirectUri: options.redirectUri,
-            };
+                const authCodeUrlRequestParams = {
+                    state: state,
+                    scopes: options.scopes || [],
+                    redirectUri: options.redirectUri,
+                };
 
-            const authCodeRequestParams = {
-                state: state,
-                scopes: options.scopes || [],
-                redirectUri: options.redirectUri,
-            };
+                const authCodeRequestParams = {
+                    state: state,
+                    scopes: options.scopes || [],
+                    redirectUri: options.redirectUri,
+                };
 
-            if (!this.msalConfig.auth.cloudDiscoveryMetadata || !this.msalConfig.auth.authorityMetadata) {
-                const [cloudDiscoveryMetadata, authorityMetadata] = await Promise.all([
-                    this.getCloudDiscoveryMetadata(this.msalConfig.auth.authority),
-                    this.getAuthorityMetadata(this.msalConfig.auth.authority)
-                ]);
+                if (!this.msalConfig.auth.cloudDiscoveryMetadata || !this.msalConfig.auth.authorityMetadata) {
+                    console.log('[AUTH] Fetching cloud discovery and authority metadata...');
+                    const [cloudDiscoveryMetadata, authorityMetadata] = await Promise.all([
+                        this.getCloudDiscoveryMetadata(this.msalConfig.auth.authority),
+                        this.getAuthorityMetadata(this.msalConfig.auth.authority)
+                    ]);
 
-                this.msalConfig.auth.cloudDiscoveryMetadata = JSON.stringify(cloudDiscoveryMetadata);
-                this.msalConfig.auth.authorityMetadata = JSON.stringify(authorityMetadata);
+                    this.msalConfig.auth.cloudDiscoveryMetadata = JSON.stringify(cloudDiscoveryMetadata);
+                    this.msalConfig.auth.authorityMetadata = JSON.stringify(authorityMetadata);
+                    console.log('[AUTH] Metadata loaded successfully');
+                }
+
+                const msalInstance = this.getMsalInstance(this.msalConfig);
+
+                // trigger the first leg of auth code flow
+                console.log('[AUTH] Redirecting to auth code URL...');
+                return this.redirectToAuthCodeUrl(
+                    authCodeUrlRequestParams,
+                    authCodeRequestParams,
+                    msalInstance
+                )(req, res, next);
+            } catch (error) {
+                console.error('[AUTH] Error in login:', error.message);
+                next(error);
             }
-
-            const msalInstance = this.getMsalInstance(this.msalConfig);
-
-            // trigger the first leg of auth code flow
-            return this.redirectToAuthCodeUrl(
-                authCodeUrlRequestParams,
-                authCodeRequestParams,
-                msalInstance
-            )(req, res, next);
         };
     }
 
@@ -89,8 +98,12 @@ class AuthProvider {
 
   handleRedirect = (options = {}) => {
     return async (req, res, next) => {
+        console.log('[AUTH] handleRedirect called');
         const data = req.body?.state ? req.body : req.query;
+        console.log('[AUTH] Redirect data:', { hasState: !!data?.state, hasCode: !!data?.code });
+        
         if (!data || !data.state) {
+            console.error('[AUTH] Missing state in redirect');
             return next(new Error('Error: response not found'));
         }
 
@@ -101,12 +114,14 @@ class AuthProvider {
         };
 
         try {
+            console.log('[AUTH] Acquiring token by code...');
             const msalInstance = this.getMsalInstance(this.msalConfig);
             if (req.session.tokenCache) {
                 msalInstance.getTokenCache().deserialize(req.session.tokenCache);
             }
 
             const tokenResponse = await msalInstance.acquireTokenByCode(authCodeRequest, data);
+            console.log('[AUTH] Token acquired successfully');
 
             req.session.tokenCache = msalInstance.getTokenCache().serialize();
             req.session.idToken = tokenResponse.idToken;
@@ -114,8 +129,10 @@ class AuthProvider {
             req.session.isAuthenticated = true;
 
             const state = JSON.parse(this.cryptoProvider.base64Decode(data.state));
+            console.log('[AUTH] Redirecting to:', state.successRedirect);
             res.redirect(state.successRedirect);
         } catch (error) {
+            console.error('[AUTH] Error in handleRedirect:', error.message);
             next(error);
         }
     }

@@ -10,22 +10,30 @@ const { REDIRECT_URI, POST_LOGOUT_REDIRECT_URI } = require('../authConfig');
 
 const router = express.Router();
 
-router.get('/signin', authProvider.login({
-    scopes: [],
-    redirectUri: REDIRECT_URI,
-    successRedirect: '/'
-}));
+router.get('/signin', (req, res, next) => {
+    authProvider.login({
+        scopes: [],
+        redirectUri: REDIRECT_URI,
+        successRedirect: '/'
+    })(req, res, next);
+});
 
-router.get('/acquireToken', authProvider.acquireToken({
-    scopes: ['User.Read'],
-    redirectUri: REDIRECT_URI,
-    successRedirect: '/users/profile'
-}));
+router.get('/acquireToken', (req, res, next) => {
+    authProvider.acquireToken({
+        scopes: ['User.Read'],
+        redirectUri: REDIRECT_URI,
+        successRedirect: '/users/profile'
+    })(req, res, next);
+});
 
-router.get('/redirect', authProvider.handleRedirect());
+router.get('/redirect', (req, res, next) => {
+    authProvider.handleRedirect()(req, res, next);
+});
 
-router.get('/signout', authProvider.logout({
-    postLogoutRedirectUri: POST_LOGOUT_REDIRECT_URI
-}));
+router.get('/signout', (req, res, next) => {
+    authProvider.logout({
+        postLogoutRedirectUri: POST_LOGOUT_REDIRECT_URI
+    })(req, res, next);
+});
 
 module.exports = router;
