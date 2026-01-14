@@ -87,7 +87,7 @@ class AuthProvider {
         };
     }
 
-  handleRedirect(options = {}) {
+  handleRedirect = (options = {}) => {
     return async (req, res, next) => {
         const data = req.body?.state ? req.body : req.query;
         if (!data || !data.state) {
@@ -119,7 +119,7 @@ class AuthProvider {
             next(error);
         }
     }
-}
+  }
 
 
 

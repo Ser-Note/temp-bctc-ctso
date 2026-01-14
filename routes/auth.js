@@ -22,7 +22,7 @@ router.get('/acquireToken', authProvider.acquireToken({
     successRedirect: '/users/profile'
 }));
 
-router.get('/redirect', authProvider.handleRedirect);
+router.get('/redirect', authProvider.handleRedirect());
 
 router.get('/signout', authProvider.logout({
     postLogoutRedirectUri: POST_LOGOUT_REDIRECT_URI
