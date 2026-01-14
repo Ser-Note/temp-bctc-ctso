@@ -1,12 +1,17 @@
 # Environment variables (contains password hash - NEVER commit this!)
 .env
+.env.local
+.env.*.local
 
 # Node modules
 node_modules/
+package-lock.json
+yarn.lock
 
 # Logs
 *.log
 npm-debug.log*
+yarn-error.log*
 
 # OS files
 .DS_Store
@@ -17,3 +22,13 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+*~
+
+# Build/Dist
+dist
+build
+.next
+out
+
+# Vercel
+.vercel
