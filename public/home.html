@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/organization.css">
+    <link rel="icon" type="image/x-icon" href="/photos/bctc-logo.ico">
+    <title>CTSO HUB</title>
+</head>
+<body>
+    <nav>
+        <ul class="header-margin">
+            <img src="/photos/BCTC_Logo.png">   
+        </ul>
+        <ul class="sidebar">
+            <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+            <li><a href="calendar.html" target="_self">Calendar</a></li>
+            <li><a href="ffa.html" target="_self">FFA</a></li>
+            <li><a href="hosa.html" target="_self">HOSA</a></li>
+            <li><a href="nths.html" target="_self">NTHS</a></li>
+            <li><a href="pba.html" target="_self">PBA</a></li>
+            <li><a href="skills.html" target="_self">SKILLS</a></li>
+            <li><a href="vei.html" target="_self">VEI</a></li>
+        </ul>
+        <ul>
+            <li><a href="">Home</a></li>
+            <li class="hide-on-mobile"><a href="calendar.html" target="_self">Calendar</a></li>
+            <li class="hide-on-mobile"><a href="ffa.html" target="_self">FFA</a></li>
+            <li class="hide-on-mobile"><a href="hosa.html" target="_self">HOSA</a></li>
+            <li class="hide-on-mobile"><a href="nths.html" target="_self">NTHS</a></li>
+            <li class="hide-on-mobile"><a href="pba.html" target="_self">PBA</a></li>
+            <li class="hide-on-mobile"><a href="skills.html" target="_self">SKILLS</a></li>
+            <li class="hide-on-mobile"><a href="vei.html" target="_self">VEI</a></li>
+            <li class="menu-button" onclick=showSideBar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+        </ul>
+        <script>
+            function showSideBar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.style.display = 'block';
+                
+            }
+            function hideSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.style.display = 'none';
+            }
+        </script>
+    </nav>
+
+    <!-- 
+    text here    
+    -->
+	<section id = "Home">
+		<h1>Berks Career and Technology Center Student Organizations</h1>
+		<p>
+            The CTSO Website is for students and organizers to learn more about their extra corricular group. 
+            This allows organizers to post updates about their group. Some of this information includes what the program is about and current Events.
+            The most important feature is the Calander. When the user clicks on a caladar button that contains an event a pop up is shown. This pop up 
+            shows name, a small description, and a link to a full description tab. The Next tab is more descriptive showing location, time, and additional files.
+        </p>	
+	</section>
+
+</body>
+
+</html>

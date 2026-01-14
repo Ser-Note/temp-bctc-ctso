@@ -1,0 +1,66 @@
+<!-- event-details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Details</title>
+    <link rel="stylesheet" href="/css/event_details_styles.css">
+    <link rel="icon" type="image/x-icon" href="/photos/bctc-logo.ico">
+</head>
+<body>
+    <nav>
+        <ul class="header-margin">
+            <img src="/photos/BCTC_Logo.png">   
+        </ul>
+        <ul>
+            <li><a href="calendar.html" class="back-link">← Back to Calendar</a></li>
+        </ul>
+    </nav>
+    
+
+    <div class="event-details-container">
+        <div class="event-header">
+            <h1 id="fullEventName">Loading Event...</h1>
+            <span id="eventOrganization" class="org-badge">Loading...</span>
+        </div>
+        
+        <div class="event-meta">
+            <div class="meta-item">
+                <span class="icon">📅</span>
+                <span id="fullEventDate">Loading...</span>
+            </div>
+            <div class="meta-item">
+                <span class="icon">⏰</span>
+                <span id="eventTime">Loading...</span>
+            </div>
+            <div class="meta-item">
+                <span class="icon">📍</span>
+                <span id="eventLocation">Loading...</span>
+            </div>
+        </div>
+        
+        <div class="event-section">
+            <h3>📝 Description</h3>
+            <p id="fullDescription">Loading event details...</p>
+        </div>
+        
+        <div class="event-section" id="additionalInfoSection" style="display: none;">
+            <h3>ℹ️ Additional Information</h3>
+            <div id="additionalInfo"></div>
+        </div>
+    
+        <div class="event-section" id="imagesSection" style="display: none;">
+            <h3>🖼️ Event Images</h3>
+            <div id="eventImages" class="image-gallery"></div>
+        </div>
+
+        <div class="event-section" id="documentsSection" style="display: none;">
+            <h3>📄 Event Documents</h3>
+            <div id="eventDocuments" class="document-gallery"></div>
+        </div>
+
+    </div>
+    
+    <script src="/js/event-details.js"></script>
+</body>
+</html>

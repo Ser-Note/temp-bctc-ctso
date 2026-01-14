@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "rewrites": [
+    { "source": "/auth/(.*)", "destination": "/api/index" },
+    { "source": "/users/(.*)", "destination": "/api/index" },
+    { "source": "/getJotFormData/(.*)", "destination": "/api/index" },
+    { "source": "/(calendar|home|nths|hosa|ffa|pba|skills|vei|event-details).html", "destination": "/api/index" }
+  ]
+}

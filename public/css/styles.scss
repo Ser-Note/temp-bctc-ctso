@@ -1,0 +1,136 @@
+/* Cleaned sign-in styles
+   - Dark-theme focused with `.Winter` overrides
+   - Continuous CSS-driven snowflakes (.snowflake)
+   - Responsive centered login card
+*/
+
+
+// npx sass public/css/styles.scss public/css/styles.css
+:root{
+    --card-bg: #ffffff;
+    --card-radius: 18px;
+    --muted: #6b7280;
+    --accent: #2563eb;
+}
+
+/* --- Base layout --- */
+*{box-sizing:border-box}
+html,body{height:100%;}
+body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial;
+    background: linear-gradient(180deg,#f0f4ff 0%, #f8fafc 100%);
+    color: #111827;
+    position:relative;
+    overflow-x:hidden;
+}
+
+/* Centered card that contains login info */
+.info{
+    width:min(880px,94vw);
+    max-width:920px;
+    background:var(--card-bg);
+    border-radius:var(--card-radius);
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1rem;
+    box-shadow:0 10px 30px rgba(2,6,23,0.08);
+    position:relative;
+    z-index:1200; /* keep above snow */
+}
+
+.header-margin{display:flex;justify-content:center;margin-bottom:6px;background:#fafafa !important;border-radius:50%;width:120px;height:120px;align-items:center}
+.header-margin img{max-width:100px;height:auto;border-radius:0}
+
+h1{margin:0;font-size:2rem;color:var(--accent);text-align:center}
+h2{margin:0;font-size:1.1rem;color:#10b981}
+p{margin:0;color:var(--muted);text-align:center}
+ul.info{padding:1rem 0 1.5rem 0; list-style:none}
+.Winter li { background: rgba(255,255,255,0.1) !important; backdrop-filter: blur(5px); color: #111827 !important; padding: 0.5rem; border-radius: 8px; margin: 0.25rem 0; }
+.Winter a { background: rgba(255,255,255,0.1) !important; backdrop-filter: blur(5px); color: #111827 !important; padding: 0.5rem; border-radius: 8px; margin: 0.25rem 0;  }
+.Winter h2 { background: rgba(255,255,255,0.1) !important; backdrop-filter: blur(5px); color: #111827 !important; padding: 0.5rem; border-radius: 8px; margin: 0.25rem 0;  }
+.Winter h1 { background: rgba(255,255,255,0.1) !important; backdrop-filter: blur(5px); color: #111827 !important; padding: 0.5rem; border-radius: 8px; margin: 0.25rem 0;  }
+.Winter img { background: white !important; color: #111827 !important; padding: 0.5rem; border-radius: 8px; margin: 0.25rem 0;  }
+
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media (max-width:600px){
+    .info{padding:1rem;border-radius:12px}
+    h1{font-size:1.25rem}
+}
+
+/* --- Winter Theme Overrides (dark background, card tint) --- */
+.Winter body, .Winter{
+    color:#e6eef8;
+    cursor: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52"><text y="36" font-size="38" fill="%232563eb">❄</text></svg>') 14 14, pointer;
+}
+.Winter .info{
+    background: #ffffff !important;
+    box-shadow:0 20px 60px rgba(2,6,23,0.6);
+    border:1px solid rgba(255,255,255,0.1);
+}
+.Winter .info h1, .Winter .info p, .Winter .info li, .Winter .info a, .Winter .info h2 { color: #111827 !important; }
+
+/* --- Snow container and snowflake base styles --- */
+#winterSnowContainer{position:fixed;inset:0;pointer-events:none;z-index:1000;overflow:visible}
+.Winter .snowflake{
+    position:absolute;top:-10vh;left:0;color:#ffffff;font-size:14px;opacity:0.85;
+    text-shadow:0 0 6px #fff7, 0 0 12px rgba(16,185,129,0.08);
+    transform-origin:center;
+    animation-name:fall;animation-timing-function:linear;animation-iteration-count:infinite;
+}
+
+/* gentle fall with rotation */
+@keyframes fall{
+    0%{transform:translateY(-10vh) rotate(0deg);opacity:0}
+    5%{opacity:1}
+    100%{transform:translateY(110vh) rotate(360deg);opacity:0.9}
+}
+
+/* small utility: when not winter ensure none of these apply */
+body:not(.Winter) #winterSnowContainer{display:none}
+
+/* Winter background layer */
+#winterBackground{
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 500; /* behind snow(1000), modal(1200), bear(1300) */
+    pointer-events: none;
+    background-image: url('/photos/icymountain.svg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+body:not(.Winter) #winterBackground{display:none}
+
+/* Polar Bear Mascot */
+#winterBear {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 150px;
+    height: 150px;
+    z-index: 1300;
+    display: none;
+    border: none !important;
+    background: transparent !important;
+    animation: bearWave 2s infinite ease-in-out;
+}
+@keyframes bearWave {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.05); }
+    50% { transform: rotate(5deg) scale(1.1); }
+    75% { transform: rotate(-5deg) scale(1.05); }
+}
+
+/* End of file */

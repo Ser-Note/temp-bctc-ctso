@@ -1,0 +1,201 @@
+*{
+    margin: 0;
+    padding: 0;
+    color:white;
+}
+body{
+    min-height: 100vh;
+
+    /* Actual Stuff */
+    background-color: #003E4A;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+/* #region Navigation stuff */
+
+nav {
+    background-color: #003a47;
+    font-weight: 600;
+    font-size: x-large;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, .3);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+nav ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    position: sticky;
+    justify-content:flex-end;
+    align-items: center;
+    
+}
+.header-margin img{
+    height: 150px;
+    
+    margin-right: auto;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+}
+/*This is to make the BCTC margin*/
+.header-margin{
+    width: 100%;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    
+    list-style: none;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    
+}
+nav li{
+    margin-right: 20px;
+    height: 50px;
+    
+}
+nav a{
+    height: 100%;
+    padding: 0 30px;
+    text-decoration:  none;
+    display: flex;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    
+}
+nav a:hover{
+    background-color: #005f73;
+    scale: 1;
+    transition: scale .05s ease-in;
+    scale: 1.1;
+}
+nav a:active{
+    background-color: #0a4d5c;
+    scale: 1.1;
+    transition: scale .05s ease-in;
+    scale: 1;
+}
+nav li:first-child{
+    margin-right: auto;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 1000;
+    background-color: #003a47;
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right .5s ease-in-out;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.sidebar li {
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+.sidebar a {
+    width: 100%;
+}
+.menu-button {
+    display: none;
+}
+/* #endregion Navigation Stuff End*/
+
+section{
+    filter: drop-shadow(0px 5px 6px #000000);
+
+    text-align: center;
+
+    margin-left: 1vw;
+    margin-top: 1vh;
+
+    padding-top: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 2vh;
+}
+section p {
+    background-color: #007b94;
+    border-radius: 10px;
+
+    font-family: Verdana, sans-serif;
+
+    padding-top: 1vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 2vh;
+
+    line-height: 1.5;
+
+
+}
+section h1{
+    background-color: #007b94;
+    border-radius: 10px;
+    padding-bottom: 5vh;
+    margin-bottom: 2vh;
+}
+
+/* Officer Cards Styling */
+.officers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.officer-card {
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+
+}
+
+.officer-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.officer-card p {
+    color: #000000;
+    font-size: 1em;
+}
+
+#nths-advisors, #nths-officers {
+    margin-top: 30px;
+}
+
+#nths-advisors h2, #nths-officers h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+@media (max-width: 500px){
+    .sidebar {
+        width: 100%;
+    }
+    html{
+        font-size: 12pt;
+    }
+}
+@media (max-width: 1300px) {
+    .hide-on-mobile {
+        display: none;
+    }
+    .menu-button {
+        display: block;
+    }
+}

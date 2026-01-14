@@ -1,0 +1,28 @@
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script  src="/js/login.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="/photos/bctc-logo.ico">
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <!-- Snowflake container for Winter theme -->
+    <div id="winterSnowContainer"></div>
+
+    <!-- Polar Bear Mascot -->
+    <object data="/photos/polarbear.svg" id="winterBear" width="150" height="150" type="image/svg+xml" style="background: transparent; border: none;"></object>
+
+    <ul class="info">
+        <div class="header-margin">
+            <img src="/photos/BCTC_Logo.png">   
+        </div>
+        <h1>{{title}}</h1>
+        {{#if isAuthenticated }}
+            <h2>Hi {{username}}!</h2>
+            <li><a href="/calendar.html">Go to CTSO Website</a></li>
+            <li><a href="/auth/signout">Sign out</a></li>
+        {{else}}
+            <a href="/auth/signin">Sign in</a>
+        {{/if}}
+    </ul>
+</body>
