@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Berks Career CTSO Website",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "main": "api/index.js",
   "scripts": {
